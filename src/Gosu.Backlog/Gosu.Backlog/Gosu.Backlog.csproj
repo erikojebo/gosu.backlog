@@ -164,8 +164,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Excel\BacklogItemCell.cs" />
+    <Compile Include="Models\Excel\BacklogItemRow.cs" />
+    <Compile Include="Models\Excel\BacklogTable.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\ExcelSheetUploadModel.cs" />
+    <Compile Include="Models\Excel\BacklogTableHeader.cs" />
+    <Compile Include="Models\Excel\BacklogTableRange.cs" />
+    <Compile Include="Models\Excel\ExcelExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +209,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Home\CardSetup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,6 +5,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Gosu.Backlog.Models;
+using Gosu.Backlog.Models.Excel;
 using OfficeOpenXml;
 
 namespace Gosu.Backlog.Controllers
@@ -36,9 +37,11 @@ namespace Gosu.Backlog.Controllers
                 }
 
                 var worksheet = package.Workbook.Worksheets[model.WorksheetIndex];
-            }
 
-            return RedirectToAction("Index");
+                var table = BacklogTable.Read(worksheet, model.HasHeaders);
+
+                return View("CardSetup", table);
+            }
         }
 
         private void ValidateWorkbook()

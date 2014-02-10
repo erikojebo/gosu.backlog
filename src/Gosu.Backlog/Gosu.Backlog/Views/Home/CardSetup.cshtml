@@ -1,0 +1,26 @@
+﻿@model Gosu.Backlog.Models.Excel.BacklogTable
+
+<table class="table">
+    
+    <thead>
+        <tr>
+            @foreach (var header in Model.ColumnHeaders)
+            {
+                <th>@header</th>
+            }
+        </tr>
+    </thead>
+    
+    <tbody>
+        @foreach (var row in Model.Rows)
+        {
+            <tr>
+                @foreach (var cell in row.Cells)
+                {
+                    <td>@cell</td>
+                }
+            </tr>
+        }
+    </tbody>
+
+</table>    
