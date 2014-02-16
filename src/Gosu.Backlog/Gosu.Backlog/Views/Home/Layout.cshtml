@@ -1,0 +1,15 @@
+﻿@section scripts{
+    <script type="text/javascript">
+        window.initializeLayout = function (ko, pageViewModel) {
+            alert("hej");
+            window.ko = ko;
+            ko.applyBindings(pageViewModel, document.body);
+        }
+    </script>
+}
+
+<ul data-bind="foreach: cards">
+    <li data-bind="text: description">
+        
+    </li>
+</ul>

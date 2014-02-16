@@ -44,6 +44,11 @@ namespace Gosu.Backlog.Controllers
             }
         }
 
+        public ActionResult Layout()
+        {
+            return View();
+        }
+
         private void ValidateWorkbook()
         {
             if (Request.Files.Count <= 0 || Request.Files[0] == null)

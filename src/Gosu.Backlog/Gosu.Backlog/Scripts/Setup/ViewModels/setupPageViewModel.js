@@ -10,6 +10,20 @@ gb.createSetupPageViewModel = function (headerViewModels, backlogItemViewModels)
     var lowerRight = ko.observable();
     var lowerLeft = ko.observable();
 
+    var layoutCards = function () {
+
+        var cardViewModels = backlogItems().map(function() {
+            return gb.createCardViewModel();
+        });
+
+        var layoutPageViewModel = gb.createLayoutPageViewModel(cardViewModels);
+
+        var childWindow = window.open(gb.urls.layoutCards);
+        childWindow.addEventListener('load', function() {
+            childWindow.initializeLayout(ko, layoutPageViewModel);
+        }, false);
+    };
+
     return {
         backlogItems: backlogItems,
         headers: headers,
@@ -17,6 +31,7 @@ gb.createSetupPageViewModel = function (headerViewModels, backlogItemViewModels)
         description: description,
         title: title,
         lowerLeft: lowerLeft,
-        lowerRight: lowerRight
+        lowerRight: lowerRight,
+        layoutCards: layoutCards
     };
 };

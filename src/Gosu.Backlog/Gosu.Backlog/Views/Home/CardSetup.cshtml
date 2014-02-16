@@ -9,6 +9,9 @@
     <script type="text/javascript">
 
         var gb = gb || {};
+        gb.urls = gb.urls || {};
+
+        gb.urls.layoutCards = '@Url.Action("Layout")';
 
         $(function() {
 
@@ -55,6 +58,15 @@
         <span data-bind="text: title"></span>
     </div>
 </div>
+
+<menu class="pull-right">
+    <ul class="list-unstyled">
+        <li>
+            <a href="@Url.Action("Layout")" class="btn btn-primary" data-bind="click: layoutCards">Layout cards</a>
+        </li>
+    </ul>
+    
+</menu>
 
 <table class="table">
     

@@ -199,9 +199,11 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Setup\ViewModels\backlogItemViewModel.js" />
+    <Content Include="Scripts\Setup\ViewModels\cardViewModel.js" />
     <Content Include="Scripts\Setup\ViewModels\cellViewModel.js" />
     <Content Include="Scripts\Setup\dragdrop.js" />
     <Content Include="Scripts\Setup\ViewModels\headerViewModel.js" />
+    <Content Include="Scripts\Setup\ViewModels\layoutPageViewModel.js" />
     <Content Include="Scripts\Setup\ViewModels\setupPageViewModel.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -218,6 +220,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\CardSetup.cshtml" />
+    <Content Include="Views\Home\Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
