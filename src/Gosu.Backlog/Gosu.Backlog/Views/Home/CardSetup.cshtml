@@ -16,10 +16,10 @@
         
             @foreach(var header in Model.ColumnHeaders)
             {
-                @:headerViewModels.push(gb.createHeaderViewModel('@header.Title', @header.ColumnIndex));
+                @:headerViewModels.push(gb.createHeaderViewModel('@Html.Raw(header.Title)', @header.ColumnIndex));
             }
 
-            var backlogItemRows = JSON.parse('@Html.Raw(Model.ToJsonArray())');
+            var backlogItemRows = JSON.parse('@Html.Raw(Model.ToJsonArray().Replace("\\", "\\\\"))');
             var backlogItemViewModels = backlogItemRows.map(function(values) {
                 return gb.createBacklogItemViewModel(values);
             });         
