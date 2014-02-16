@@ -9,7 +9,14 @@ gb.createBacklogItemViewModel = function (values) {
         valueViewModels.push(viewModel);
     }
 
+    var cells = ko.observableArray(valueViewModels);
+
+    var getValueAt = function(index) {
+        return cells()[index].value;
+    };
+
     return {
-        cells: ko.observableArray(valueViewModels)
+        cells: cells,
+        getValueAt: getValueAt
     };
 };

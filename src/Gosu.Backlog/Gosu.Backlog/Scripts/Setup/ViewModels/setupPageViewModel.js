@@ -10,20 +10,45 @@ gb.createSetupPageViewModel = function (headerViewModels, backlogItemViewModels)
     var lowerRight = ko.observable();
     var lowerLeft = ko.observable();
 
+    function getValue(item, viewModel) {
+        if (!viewModel) {
+            return null;
+        }
+
+        return item.getValueAt(viewModel.index);
+    }
+
+    function createCardViewModel(item) {
+        var card = gb.createCardViewModel();
+
+        card.title(getValue(item, title()));
+        card.description(getValue(item, description()));
+        card.upperRight(getValue(item, upperRight()));
+        card.lowerRight(getValue(item, lowerRight()));
+        card.lowerLeft(getValue(item, lowerLeft()));
+
+        return card;
+    }
+
+    function openLayoutTab(layoutPageViewModel) {
+        var childWindow = window.open(gb.urls.layoutCards);
+        
+        childWindow.addEventListener('load', function() {
+            childWindow.initializeLayout(ko, layoutPageViewModel);
+        }, false);
+    }
+
     var layoutCards = function () {
 
-        var cardViewModels = backlogItems().map(function() {
-            return gb.createCardViewModel();
+        var cardViewModels = backlogItems().map(function(item) {
+            return createCardViewModel(item);
         });
 
         var layoutPageViewModel = gb.createLayoutPageViewModel(cardViewModels);
 
-        var childWindow = window.open(gb.urls.layoutCards);
-        childWindow.addEventListener('load', function() {
-            childWindow.initializeLayout(ko, layoutPageViewModel);
-        }, false);
+        openLayoutTab(layoutPageViewModel);
     };
-
+    
     return {
         backlogItems: backlogItems,
         headers: headers,

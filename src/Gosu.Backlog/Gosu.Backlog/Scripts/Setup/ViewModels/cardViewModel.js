@@ -1,7 +1,7 @@
 ﻿gb.createCardViewModel = function () {
 
-    var upperRight = ko.observable("ur");
-    var description = ko.observable("desc");
+    var upperRight = ko.observable();
+    var description = ko.observable();
     var title = ko.observable();
     var lowerRight = ko.observable();
     var lowerLeft = ko.observable();

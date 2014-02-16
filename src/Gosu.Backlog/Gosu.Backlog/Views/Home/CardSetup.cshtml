@@ -1,5 +1,9 @@
 ﻿@model Gosu.Backlog.Models.Excel.BacklogTable
 
+@{
+    ViewBag.Title = "Card Setup";
+}
+
 @section scripts {
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.custom.min.js")"></script>
@@ -39,7 +43,6 @@
 @section styles {
     <link href="~/Content/setup.css" rel="stylesheet" />
 }
-
 
 <div id="card-template" class="card">
     <div class="upper-right" data-bind="with: upperRight, drop: upperRight">
