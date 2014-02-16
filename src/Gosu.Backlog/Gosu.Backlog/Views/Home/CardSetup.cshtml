@@ -39,11 +39,21 @@
 
 
 <div id="card-template" class="card">
-    <div class="upper-right" data-bind="drop: setUpperRight, text: upperRight"></div>
-    <div class="title"></div>
-    <div class="description"></div>
-    <div class="lower-left"></div>
-    <div class="lower-right"></div>
+    <div class="upper-right" data-bind="with: upperRight, drop: upperRight">
+        <span data-bind="text: title"></span>
+    </div>
+    <div class="title" data-bind="with: title, drop: title">
+        <span data-bind="text: title"></span>
+    </div>
+    <div class="description" data-bind="with: description, drop: description">
+        <span data-bind="text: title"></span>
+    </div>
+    <div class="lower-left" data-bind="with: lowerLeft, drop: lowerLeft">
+        <span data-bind="text: title"></span>
+    </div>
+    <div class="lower-right" data-bind="with: lowerRight, drop: lowerRight">
+        <span data-bind="text: title"></span>
+    </div>
 </div>
 
 <table class="table">
