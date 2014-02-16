@@ -2,16 +2,18 @@ namespace Gosu.Backlog.Models.Excel
 {
     public class BacklogColumnHeader
     {
-        private readonly string _title;
+        public readonly string Title;
+        public readonly int ColumnIndex;
 
-        public BacklogColumnHeader(string title)
+        public BacklogColumnHeader(string title, int columnIndex)
         {
-            _title = title;
+            Title = title;
+            ColumnIndex = columnIndex;
         }
 
         public override string ToString()
         {
-            return _title;
+            return Title;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.Helpers;
 using OfficeOpenXml;
 
 namespace Gosu.Backlog.Models.Excel
@@ -69,7 +71,7 @@ namespace Gosu.Backlog.Models.Excel
                 for (int columnIndex = 0; columnIndex < _tableRange.ColumnCount; columnIndex++)
                 {
                     var title = titleConstructor(columnIndex);
-                    var header = new BacklogColumnHeader(title);
+                    var header = new BacklogColumnHeader(title, columnIndex);
 
                     _table.ColumnHeaders.Add(header);
                 }
@@ -101,6 +103,12 @@ namespace Gosu.Backlog.Models.Excel
 
                 return row;
             }     
+        }
+
+        public string ToJsonArray()
+        {
+            var values = Rows.Select(x => x.Cells.Select(c => c.ToString()).ToArray()).ToArray();
+            return Json.Encode(values);
         }
     }
 }

@@ -1,26 +1,63 @@
 ﻿@model Gosu.Backlog.Models.Excel.BacklogTable
 
+@section scripts {
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.custom.min.js")"></script>
+
+    @Scripts.Render("~/bundles/setup")
+
+    <script type="text/javascript">
+
+        var gb = gb || {};
+
+        $(function() {
+
+            var headerViewModels = [];
+        
+            @foreach(var header in Model.ColumnHeaders)
+            {
+                @:headerViewModels.push(gb.createHeaderViewModel('@header.Title', @header.ColumnIndex));
+            }
+
+            var backlogItemRows = JSON.parse('@Html.Raw(Model.ToJsonArray())');
+            var backlogItemViewModels = backlogItemRows.map(function(values) {
+                return gb.createBacklogItemViewModel(values);
+            });         
+        
+            gb.pageViewModel = gb.createSetupPageViewModel(headerViewModels, backlogItemViewModels);
+
+            ko.applyBindings(gb.pageViewModel);
+
+            gb.initializeDragDrop();
+        });
+    </script>
+}
+
+@section styles {
+    <link href="~/Content/setup.css" rel="stylesheet" />
+}
+
+
+<div id="card-template" class="card">
+    <div class="upper-right" data-bind="drop: setUpperRight, text: upperRight"></div>
+    <div class="title"></div>
+    <div class="description"></div>
+    <div class="lower-left"></div>
+    <div class="lower-right"></div>
+</div>
+
 <table class="table">
     
     <thead>
-        <tr>
-            @foreach (var header in Model.ColumnHeaders)
-            {
-                <th>@header</th>
-            }
+        <tr data-bind="foreach: headers">
+            <th data-bind="text: title"></th>
         </tr>
     </thead>
     
-    <tbody>
-        @foreach (var row in Model.Rows)
-        {
-            <tr>
-                @foreach (var cell in row.Cells)
-                {
-                    <td>@cell</td>
-                }
-            </tr>
-        }
+    <tbody data-bind="foreach: backlogItems">
+        <tr data-bind="foreach: cells">
+            <td data-bind="text: value"></td>
+        </tr>
     </tbody>
 
 </table>    
