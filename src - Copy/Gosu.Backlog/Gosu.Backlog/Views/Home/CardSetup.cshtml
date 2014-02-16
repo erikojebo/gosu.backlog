@@ -1,0 +1,88 @@
+﻿@model Gosu.Backlog.Models.Excel.BacklogTable
+
+@{
+    ViewBag.Title = "Card Setup";
+}
+
+@section scripts {
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.custom.min.js")"></script>
+
+    @Scripts.Render("~/bundles/setup")
+
+    <script type="text/javascript">
+
+        var gb = gb || {};
+        gb.urls = gb.urls || {};
+
+        gb.urls.layoutCards = '@Url.Action("Layout")';
+
+        $(function() {
+
+            var headerViewModels = [];
+        
+            @foreach(var header in Model.ColumnHeaders)
+            {
+                @:headerViewModels.push(gb.createHeaderViewModel('@Html.Raw(header.Title)', @header.ColumnIndex));
+            }
+
+            var backlogItemRows = JSON.parse('@Html.Raw(Model.ToJsonArray().Replace("\\", "\\\\"))');
+            var backlogItemViewModels = backlogItemRows.map(function(values) {
+                return gb.createBacklogItemViewModel(values);
+            });         
+        
+            gb.pageViewModel = gb.createSetupPageViewModel(headerViewModels, backlogItemViewModels);
+
+            ko.applyBindings(gb.pageViewModel);
+
+            gb.initializeDragDrop();
+        });
+    </script>
+}
+
+@section styles {
+    <link href="~/Content/setup.css" rel="stylesheet" />
+}
+
+<div id="card-template" class="card">
+    <div class="upper-right" data-bind="with: upperRight, drop: upperRight">
+        <span data-bind="text: title"></span>
+    </div>
+    <div class="title" data-bind="with: title, drop: title">
+        <span data-bind="text: title"></span>
+    </div>
+    <div class="description" data-bind="with: description, drop: description">
+        <span data-bind="text: title"></span>
+    </div>
+    <div class="lower-left" data-bind="with: lowerLeft, drop: lowerLeft">
+        <span data-bind="text: title"></span>
+    </div>
+    <div class="lower-right" data-bind="with: lowerRight, drop: lowerRight">
+        <span data-bind="text: title"></span>
+    </div>
+</div>
+
+<menu class="pull-right">
+    <ul class="list-unstyled">
+        <li>
+            <a href="@Url.Action("Layout")" class="btn btn-primary" data-bind="click: layoutCards">Layout cards</a>
+        </li>
+    </ul>
+    
+</menu>
+
+<table class="table">
+    
+    <thead>
+        <tr data-bind="foreach: headers">
+            <th data-bind="text: title"></th>
+        </tr>
+    </thead>
+    
+    <tbody data-bind="foreach: backlogItems">
+        <tr data-bind="foreach: cells">
+            <td data-bind="text: value"></td>
+        </tr>
+    </tbody>
+
+</table>    

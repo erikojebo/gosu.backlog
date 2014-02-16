@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Cards";
+}
+
+@section scripts{
+    <script type="text/javascript">
+        var gb = gb || {};
+
+        window.initializeLayout = function(ko, pageViewModel) {
+
+
+            gb.layoutPageViewModel = pageViewModel;
+
+            window.ko = ko;
+            ko.applyBindings(pageViewModel, document.body);
+        };
+    </script>
+}
+
+@section styles {
+    <link href="~/Content/setup.css" rel="stylesheet" />
+    <link href="~/Content/layout.css" rel="stylesheet" />
+}
+
+<ul data-bind="foreach: cards" id="cards">
+    <li>
+        <div class="card">
+            <div class="upper-right">
+                <span data-bind="text: upperRight"></span>
+            </div>
+            <div class="title">
+                <span data-bind="text: title"></span>
+            </div>
+            <div class="description">
+                <span data-bind="text: description"></span>
+            </div>
+            <div class="lower-left">
+                <span data-bind="text: lowerLeft"></span>
+            </div>
+            <div class="lower-right">
+                <span data-bind="text: lowerRight"></span>
+            </div>
+        </div>
+
+    </li>
+</ul>

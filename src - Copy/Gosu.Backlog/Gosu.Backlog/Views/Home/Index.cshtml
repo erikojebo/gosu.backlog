@@ -1,0 +1,75 @@
+﻿@model Gosu.Backlog.Models.ExcelSheetUploadModel
+
+@{
+    ViewBag.Title = "Start";
+}
+
+@section styles {
+    <link href="~/Content/Index.css" rel="stylesheet" />
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(function() {
+            $("form").submit(function () {
+
+                var formData = new FormData($("form")[0]);
+                formData.append("file", $("#backlogFile")[0].files[0]);
+
+                $.ajax({
+                    async: true,
+                    type: 'POST',
+                    url: '@Url.Action("Upload", "Home")',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                }).done(function (data, textStatus, jqXHR) {
+                    var isValid = jqXHR.getResponseHeader("isValid");
+
+                    $("#page-body").html(data);
+                });
+
+                return false;
+            });
+        }) 
+
+//$("form").ajaxForm({
+//    target: '#page-body',
+//    beforeSubmit: function(formData, $form, options) {
+//        formData.push({ file: $("#backlogFile")[0].files[0] });
+//    }
+//});
+    </script>
+}
+
+<div class="jumbotron">
+    <h1>Gosu Backlog</h1>
+    <p>
+        Are your backlog items stuck in an Excel spread sheet?
+        Time to get them up on the wall! Upload an Excel spread
+        sheet to create printer friently, post-it sized cards from your backlog items.
+    </p>
+</div>
+
+<form role="form" action="@Url.Action("Upload", "Home")" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="backlogFile">Excel sheet containing backlog items</label>
+        <input type="file" name="backlogFile" id="backlogFile">
+        @Html.ValidationMessage("backlogFile")
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(x => x.HasHeaders) Worksheet has headers
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label for="worksheetIndex">Worksheet index (starting at 1)</label>
+        <input type="number" min="1" max="100" name="worksheetIndex" value="@Model.WorksheetIndex" />
+        @Html.ValidationMessageFor(x => x.WorksheetIndex)
+    </div>
+
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
